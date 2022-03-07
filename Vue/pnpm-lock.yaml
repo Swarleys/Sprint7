@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@headlessui/vue': ^1.5.0
   '@vitejs/plugin-vue': ^2.2.4
   autoprefixer: ^10.4.2
   postcss: ^8.4.7
@@ -16,6 +17,7 @@ dependencies:
   vue-router: 4.0.13_vue@3.2.31
 
 devDependencies:
+  '@headlessui/vue': 1.5.0_vue@3.2.31
   '@vitejs/plugin-vue': 2.2.4_vite@2.8.6+vue@3.2.31
   autoprefixer: 10.4.2_postcss@8.4.7
   postcss: 8.4.7
@@ -74,6 +76,15 @@ packages:
 
   /@emmetio/scanner/1.0.0:
     resolution: {integrity: sha512-8HqW8EVqjnCmWXVpqAOZf+EGESdkR27odcMMMGefgKXtar00SoYNSryGv//TELI4T3QFsECo78p+0lmalk/CFA==}
+    dev: true
+
+  /@headlessui/vue/1.5.0_vue@3.2.31:
+    resolution: {integrity: sha512-jAp6XYpqdEv32xhszaj5ejvjaX5qhu20sCbxu7lplePEfZL+4ffabivJBBTZAiPWczqAXmnZWNWG5DOyqjRa4w==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.2.31
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:

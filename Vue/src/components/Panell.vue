@@ -22,8 +22,18 @@ onUnmounted(() => emits("totalWeb", 30))
 
 <template>
     <div class="p-5 border-black border-2 inline-block rounded-xl my-4 scalePanel">
-        <CustomInput :numVal="paginas" label="Número de paginas:" @changeNumVal="handlePaginas" />
-        <CustomInput :numVal="idiomas" label="Número de idiomas:" @changeNumVal="handleIdiomas" />
+        <CustomInput
+            :numVal="paginas"
+            label="Número de paginas:"
+            description="Lugar donde indicar la cantidad de paginas que tendra tu pagina web."
+            @changeNumVal="handlePaginas"
+        />
+        <CustomInput
+            :numVal="idiomas"
+            label="Número de idiomas:"
+            description="Lugar donde indicar la cantidad de idiomas en los que estara disponible tu pagina web."
+            @changeNumVal="handleIdiomas"
+        />
     </div>
 </template>
 
@@ -40,6 +50,6 @@ onUnmounted(() => emits("totalWeb", 30))
 
 .scalePanel {
     transform-origin: top left;
-    animation: panell 500ms ease-in-out ;
+    animation: panell 500ms ease-in-out;
 }
 </style>
