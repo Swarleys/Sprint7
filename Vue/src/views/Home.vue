@@ -8,6 +8,7 @@ const cliente = ref('');
 const presupuestoNoError = ref(true);
 const clienteNoError = ref(true);
 const cantidadError = ref(true);
+let id = 0;
 const possibleProjects: { description: string, price: number, name: string }[] = [
     { description: 'Una pagina web (500€)', price: 500, name: 'web' },
     { description: 'Una consultoria de SEO (300€)', price: 300, name: 'seo' },
@@ -17,7 +18,7 @@ const totalWeb = ref(30);
 const totalOptions = computed(() => projectSetup.value.reduce((prev: number, item: number): number => prev + item, 0));
 const totalConPaginas = computed(() => projectSetup.value.includes(500) ? totalOptions.value + totalWeb.value : totalOptions.value);
 const handleTotalWeb = (web: number): number => totalWeb.value = web;
-const projectList = ref([] as { nombrePresupuesto: string, cliente: string, presupuesto: number }[]);
+const projectList = ref([] as { nombrePresupuesto: string, cliente: string, presupuesto: number, id: number }[]);
 const addProjects = () => {
     if (!cliente.value) { clienteNoError.value = false };
     if (!presupuesto.value) { presupuestoNoError.value = false };
@@ -26,10 +27,11 @@ const addProjects = () => {
     if (presupuesto.value) { presupuestoNoError.value = true };
     if (totalConPaginas.value) { cantidadError.value = true };
     if (cliente.value && presupuesto.value && totalConPaginas.value) {
-        projectList.value.push({ nombrePresupuesto: presupuesto.value, cliente: cliente.value, presupuesto: totalConPaginas.value })
+        projectList.value.push({ nombrePresupuesto: presupuesto.value, cliente: cliente.value, presupuesto: totalConPaginas.value, id })
         clienteNoError.value = true;
         presupuestoNoError.value = true;
         cantidadError.value = true;
+        id++;
         projectSetup.value = [];
         presupuesto.value = '';
         cliente.value = '';
@@ -98,7 +100,7 @@ const addProjects = () => {
                 />
             </form>
         </section>
-        <ListProjects :data="projectList" class="self-start mt-4" />
+        <ListProjects v-if="projectList.length > 0" :data="projectList" class="self-start mt-4" />
     </div>
 
     <router-link
