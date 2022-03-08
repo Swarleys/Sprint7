@@ -17,7 +17,7 @@ const handleIdiomas = (idiom: number): void => {
     emits("totalWeb", totalWeb.value)
 }
 
-onUnmounted(() => emits("totalWeb", 30))
+onUnmounted(() => { emits("totalWeb", 30) })
 </script>
 
 <template>
