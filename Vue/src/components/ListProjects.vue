@@ -2,7 +2,10 @@
 import { ref, computed } from 'vue';
 const props = defineProps<{ data: { nombrePresupuesto: string, cliente: string, presupuesto: number, id: number }[] }>();
 let copy = ref(props.data)
-let projects = computed(() => copy.value);
+const search = ref('');
+let projects = computed(() =>
+    copy.value.filter((project) => project.nombrePresupuesto.toLowerCase().includes(search.value.toLocaleLowerCase())
+        || project.cliente.toLowerCase().includes(search.value.toLowerCase())));
 const handleOrder = (order: string) => {
     if (order === 'cost') {
         projects.value.sort((a, b) => (a.presupuesto > b.presupuesto) ? 1 : -1);
@@ -14,11 +17,23 @@ const handleOrder = (order: string) => {
         projects.value.sort((a, b) => (a.id > b.id) ? 1 : -1);
     }
 }
+
 </script>
 
 <template>
     <div>
-        <div class="mb-4 flex gap-3">
+        <div>
+            <label for="search">
+                Filtra por nombre cliente o presupuesto:
+                <input
+                    type="text"
+                    v-model="search"
+                    id="search"
+                    class="border-2 border-slate-500"
+                />
+            </label>
+        </div>
+        <div class="my-4 flex gap-3">
             <button
                 @click="handleOrder('name')"
                 class="px-4 py-2 rounded-md shadow-orange-700 shadow-md bg-orange-500 text-white"
