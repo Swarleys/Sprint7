@@ -7,7 +7,7 @@ const filteredProjects = computed(() => props.data);
 
 <template>
     <li
-        v-for="{ nombrePresupuesto, cliente, presupuesto }, index in filteredProjects"
+        v-for="{ nombrePresupuesto, cliente, presupuesto, fullPath }, index in filteredProjects"
         :key="index"
         class="mb-2"
     >
@@ -15,10 +15,14 @@ const filteredProjects = computed(() => props.data);
             <strong>Cliente:</strong>
             {{ cliente }}
         </p>
-        <p>
-            <strong>Nombre del Presupuesto:</strong>
-            {{ nombrePresupuesto }}
-        </p>
+                <p>
+                    <strong>Nombre del Presupuesto: </strong>
+                    <router-link
+                        :to="fullPath"
+                        target="_blank"
+                        class="text-orange-500 underline"
+                    >{{ nombrePresupuesto }}</router-link>
+                </p>
         <p>
             <strong>Precio:</strong>
             {{ presupuesto }}

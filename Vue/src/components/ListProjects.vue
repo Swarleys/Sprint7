@@ -51,18 +51,22 @@ const handleOrder = (order: string) => {
         </div>
         <ul class="flex flex-col justify-center mb-4">
             <li
-                v-for="{ nombrePresupuesto, cliente, presupuesto }, index in projects"
+                v-for="{ nombrePresupuesto, cliente, presupuesto, fullPath }, index in projects"
                 :key="index"
                 class="mb-2"
                 v-if="search === ''"
             >
                 <p>
-                    <strong>Cliente:</strong>
+                    <strong>Cliente: </strong>
                     {{ cliente }}
                 </p>
                 <p>
-                    <strong>Nombre del Presupuesto:</strong>
-                    {{ nombrePresupuesto }}
+                    <strong>Nombre del Presupuesto: </strong>
+                    <router-link
+                        :to="fullPath"
+                        target="_blank"
+                        class="text-orange-500 underline"
+                    > {{ nombrePresupuesto }}</router-link>
                 </p>
                 <p>
                     <strong>Precio:</strong>
