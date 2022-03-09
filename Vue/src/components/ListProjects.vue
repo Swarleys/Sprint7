@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-const props = defineProps<{ data: { nombrePresupuesto: string, cliente: string, presupuesto: number, id: number }[] }>();
-let copy = ref(props.data)
+import { Projectist } from '../interfaces/interfaces';
+import ListFiltered from './ListFiltered.vue'
+const props = defineProps<{ data: Projectist[] }>();
+const copy = ref(props.data)
 const search = ref('');
-let projects = computed(() =>
-    copy.value.filter((project) => project.nombrePresupuesto.toLowerCase().includes(search.value.toLocaleLowerCase())
+const filteredProjects = computed(() =>
+    props.data.filter((project) => project.nombrePresupuesto.toLowerCase().includes(search.value.toLocaleLowerCase())
         || project.cliente.toLowerCase().includes(search.value.toLowerCase())));
+const projects = computed(() => copy.value);
 const handleOrder = (order: string) => {
     if (order === 'cost') {
         projects.value.sort((a, b) => (a.presupuesto > b.presupuesto) ? 1 : -1);
@@ -17,7 +20,6 @@ const handleOrder = (order: string) => {
         projects.value.sort((a, b) => (a.id > b.id) ? 1 : -1);
     }
 }
-
 </script>
 
 <template>
@@ -52,6 +54,7 @@ const handleOrder = (order: string) => {
                 v-for="{ nombrePresupuesto, cliente, presupuesto }, index in projects"
                 :key="index"
                 class="mb-2"
+                v-if="search === ''"
             >
                 <p>
                     <strong>Cliente:</strong>
@@ -67,6 +70,7 @@ const handleOrder = (order: string) => {
                 </p>
                 <hr class="mt-2 border-slate-500" />
             </li>
+            <ListFiltered v-if="search !== ''" :data="filteredProjects" />
         </ul>
     </div>
 </template>

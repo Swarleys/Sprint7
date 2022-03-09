@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import Panell from '../components/Panell.vue';
 import ListProjects from '../components/ListProjects.vue';
+import { Projectist, PossibleProjects } from '../interfaces/interfaces';
 const projectSetup = ref([] as number[]);
 const presupuesto = ref('');
 const cliente = ref('');
@@ -9,7 +10,7 @@ const presupuestoNoError = ref(true);
 const clienteNoError = ref(true);
 const cantidadError = ref(true);
 let id = 0;
-const possibleProjects: { description: string, price: number, name: string }[] = [
+const possibleProjects: PossibleProjects[] = [
     { description: 'Una pagina web (500€)', price: 500, name: 'web' },
     { description: 'Una consultoria de SEO (300€)', price: 300, name: 'seo' },
     { description: 'Una campaña de Google Ads (200€)', price: 200, name: 'ads' }
@@ -18,7 +19,7 @@ const totalWeb = ref(30);
 const totalOptions = computed(() => projectSetup.value.reduce((prev: number, item: number): number => prev + item, 0));
 const totalConPaginas = computed(() => projectSetup.value.includes(500) ? totalOptions.value + totalWeb.value : totalOptions.value);
 const handleTotalWeb = (web: number): number => totalWeb.value = web;
-const projectList = ref([] as { nombrePresupuesto: string, cliente: string, presupuesto: number, id: number }[]);
+const projectList = ref([] as Projectist[]);
 const addProjects = () => {
     if (!cliente.value) { clienteNoError.value = false };
     if (!presupuesto.value) { presupuestoNoError.value = false };
@@ -28,9 +29,6 @@ const addProjects = () => {
     if (totalConPaginas.value) { cantidadError.value = true };
     if (cliente.value && presupuesto.value && totalConPaginas.value) {
         projectList.value.push({ nombrePresupuesto: presupuesto.value, cliente: cliente.value, presupuesto: totalConPaginas.value, id })
-        clienteNoError.value = true;
-        presupuestoNoError.value = true;
-        cantidadError.value = true;
         id++;
         projectSetup.value = [];
         presupuesto.value = '';
@@ -40,7 +38,7 @@ const addProjects = () => {
 </script>
 
 <template>
-    <div class="flex justify-around mb-4">
+    <div class="flex justify-around mb-4 flex-col sm:flex-row">
         <section class="m-4 mb-8">
             <p class="text-xl mb-4">¿Qué quieres hacer?</p>
             <form @submit.prevent>
@@ -100,7 +98,7 @@ const addProjects = () => {
                 />
             </form>
         </section>
-        <ListProjects v-if="projectList.length > 0" :data="projectList" class="self-start mt-4" />
+        <ListProjects v-if="projectList.length > 0" :data="projectList" class="self-start m-4" />
     </div>
 
     <router-link
