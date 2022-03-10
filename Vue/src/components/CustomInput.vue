@@ -57,9 +57,9 @@ const increase = (): void => {
                 class="ml-2 bg-indigo-500 px-3 py-1 text-white rounded-md inline text-lg"
             >Info</p>
         </label>
-        <Dialog :open="isOpen" @close="setIsOpen">
-            <DialogOverlay class="fixed inset-0 bg-black/10" />
-            <div class="relative max-w-md mx-auto bg-white rounded-md p-10">
+        <Dialog :open="isOpen" @close="setIsOpen" class="flex justify-center">
+            <DialogOverlay class="fixed inset-0 bg-black/20" />
+            <div class="absolute max-w-md mx-auto bg-white rounded-md p-10 top-20 shadow-lg">
                 <DialogTitle class="text-2xl mb-3">{{ label }}</DialogTitle>
                 <DialogDescription class="text-xl mb-4">{{ description }}</DialogDescription>
                 <button

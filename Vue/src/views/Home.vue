@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { Projectist, PossibleProjects } from '../interfaces/interfaces';
 import Panell from '../components/Panell.vue';
 import ListProjects from '../components/ListProjects.vue';
-import { Projectist, PossibleProjects } from '../interfaces/interfaces';
+
 const projectSetup = ref([] as number[]);
 const presupuesto = ref('');
 const cliente = ref('');
@@ -12,26 +13,25 @@ let idiomas = ref(1);
 const presupuestoNoError = ref(true);
 const clienteNoError = ref(true);
 const cantidadError = ref(true);
+const projectList = ref([] as Projectist[]);
+const totalWeb = ref(paginas.value * idiomas.value * 30);
 let id = 0;
 const possibleProjects: PossibleProjects[] = [
     { description: 'Una pagina web (500€)', price: 500, name: 'web' },
     { description: 'Una consultoria de SEO (300€)', price: 300, name: 'seo' },
     { description: 'Una campaña de Google Ads (200€)', price: 200, name: 'ads' }
 ]
-const totalWeb = ref(paginas.value * idiomas.value * 30);
+
 const totalOptions = computed(() => projectSetup.value.reduce((prev: number, item: number): number => prev + item, 0));
 const totalConPaginas = computed(() => projectSetup.value.includes(500) ? totalOptions.value + totalWeb.value : totalOptions.value);
 const handleTotalWeb = (web: number): number => totalWeb.value = web;
 const handleIdiomas = (languages: number): number => idiomas.value = languages;
 const handlePaginas = (pages: number): number => paginas.value = pages;
-const projectList = ref([] as Projectist[]);
 const addProjects = () => {
-    if (!cliente.value) { clienteNoError.value = false };
-    if (!presupuesto.value) { presupuestoNoError.value = false };
-    if (!totalConPaginas.value) { cantidadError.value = false };
-    if (cliente.value) { clienteNoError.value = true };
-    if (presupuesto.value) { presupuestoNoError.value = true };
-    if (totalConPaginas.value) { cantidadError.value = true };
+    clienteNoError.value = cliente.value ? true : false;
+    presupuestoNoError.value = presupuesto.value ? true : false;
+    cantidadError.value = totalConPaginas.value ? true : false;
+
     if (cliente.value && presupuesto.value && totalConPaginas.value) {
         projectList.value.push({ nombrePresupuesto: presupuesto.value, cliente: cliente.value, presupuesto: totalConPaginas.value, id, fullPath: route.fullPath })
         id++;
@@ -42,6 +42,7 @@ const addProjects = () => {
         idiomas.value = 1;
     }
 }
+
 const route = useRoute();
 const router = useRouter();
 onMounted(() => {
@@ -51,12 +52,8 @@ onMounted(() => {
         idiomas.value = Number(route.query.idiomas ?? 1);
         totalWeb.value = (paginas.value * idiomas.value * 30)
     }
-    if (route.query.seo === 'true') {
-        projectSetup.value.push(300)
-    }
-    if (route.query.ads === 'true') {
-        projectSetup.value.push(200)
-    }
+    route.query.seo === 'true' && projectSetup.value.push(300)
+    route.query.ads === 'true' && projectSetup.value.push(200)
     if (route.query.nombrePresupuesto) {
         presupuesto.value = decodeURI(route.query.nombrePresupuesto.toString());
     }
