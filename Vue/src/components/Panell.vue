@@ -22,7 +22,11 @@ const handleIdiomas = (idiom: number): void => {
     emits("newLanguages", idiomas.value)
 }
 
-onUnmounted(() => { emits("totalWeb", 30) })
+onUnmounted(() => { 
+    emits("totalWeb", 30)
+    emits("newPages", 1)
+    emits("newLanguages", 1)
+    })
 </script>
 
 <template>

@@ -3,22 +3,16 @@ import { ref, computed } from 'vue';
 import { Projectist } from '../interfaces/interfaces';
 import ListFiltered from './ListFiltered.vue'
 const props = defineProps<{ data: Projectist[] }>();
-const copy = ref(props.data)
+const projects = ref(props.data)
 const search = ref('');
 const filteredProjects = computed(() =>
     props.data.filter((project) => project.nombrePresupuesto.toLowerCase().includes(search.value.toLocaleLowerCase())
         || project.cliente.toLowerCase().includes(search.value.toLowerCase())));
-const projects = computed(() => copy.value);
+
 const handleOrder = (order: string) => {
-    if (order === 'cost') {
-        projects.value.sort((a, b) => (a.presupuesto > b.presupuesto) ? 1 : -1);
-    }
-    if (order === 'name') {
-        projects.value.sort((a, b) => (a.nombrePresupuesto > b.nombrePresupuesto) ? 1 : -1);
-    }
-    if (order === 'reset') {
-        projects.value.sort((a, b) => (a.id > b.id) ? 1 : -1);
-    }
+    order === 'cost' && projects.value.sort((a, b) => (a.presupuesto > b.presupuesto) ? 1 : -1)
+    order === 'name' && projects.value.sort((a, b) => (a.nombrePresupuesto > b.nombrePresupuesto) ? 1 : -1);
+    order === 'reset' && projects.value.sort((a, b) => (a.id > b.id) ? 1 : -1);
 }
 </script>
 
