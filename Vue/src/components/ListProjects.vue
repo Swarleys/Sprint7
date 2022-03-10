@@ -3,16 +3,16 @@ import { ref, computed } from 'vue';
 import { Projectist } from '../interfaces/interfaces';
 import ListFiltered from './ListFiltered.vue'
 const props = defineProps<{ data: Projectist[] }>();
-const copy = ref(props.data)
+const projects = ref(props.data)
 const search = ref('');
 const filteredProjects = computed(() =>
     props.data.filter((project) => project.nombrePresupuesto.toLowerCase().includes(search.value.toLocaleLowerCase())
         || project.cliente.toLowerCase().includes(search.value.toLowerCase())));
 
 const handleOrder = (order: string) => {
-    order === 'cost' && copy.value.sort((a, b) => (a.presupuesto > b.presupuesto) ? 1 : -1)
-    order === 'name' && copy.value.sort((a, b) => (a.nombrePresupuesto > b.nombrePresupuesto) ? 1 : -1);
-    order === 'reset' && copy.value.sort((a, b) => (a.id > b.id) ? 1 : -1);
+    order === 'cost' && projects.value.sort((a, b) => (a.presupuesto > b.presupuesto) ? 1 : -1)
+    order === 'name' && projects.value.sort((a, b) => (a.nombrePresupuesto > b.nombrePresupuesto) ? 1 : -1);
+    order === 'reset' && projects.value.sort((a, b) => (a.id > b.id) ? 1 : -1);
 }
 </script>
 
@@ -45,7 +45,7 @@ const handleOrder = (order: string) => {
         </div>
         <ul class="flex flex-col justify-center mb-4">
             <li
-                v-for="{ nombrePresupuesto, cliente, presupuesto, fullPath }, index in copy"
+                v-for="{ nombrePresupuesto, cliente, presupuesto, fullPath }, index in projects"
                 :key="index"
                 class="mb-2"
                 v-if="search === ''"
