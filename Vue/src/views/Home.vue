@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { Projectist, PossibleProjects } from '../interfaces/interfaces';
+import { ProjectList, PossibleProjects } from '../interfaces/interfaces';
 import Panell from '../components/Panell.vue';
 import ListProjects from '../components/ListProjects.vue';
 
@@ -13,7 +13,7 @@ let idiomas = ref(1);
 const presupuestoNoError = ref(true);
 const clienteNoError = ref(true);
 const cantidadError = ref(true);
-const projectList = ref([] as Projectist[]);
+const projectList = ref([] as ProjectList[]);
 const totalWeb = ref(paginas.value * idiomas.value * 30);
 let id = 0;
 const possibleProjects: PossibleProjects[] = [

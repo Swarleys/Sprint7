@@ -52,10 +52,10 @@ const increase = (): void => {
                 value="+"
                 class="px-3 py-1 rounded-md bg-orange-500 text-white ml-2"
             />
-            <p
+            <button
                 @click="setIsOpen(true)"
                 class="ml-2 bg-indigo-500 px-3 py-1 text-white rounded-md inline text-lg"
-            >Info</p>
+            >Info</button>
         </label>
         <Dialog :open="isOpen" @close="setIsOpen" class="flex justify-center">
             <DialogOverlay class="fixed inset-0 bg-black/20" />

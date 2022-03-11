@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Projectist } from '../interfaces/interfaces';
+import { ProjectList } from '../interfaces/interfaces';
 import { computed} from 'vue'
-const props = defineProps<{ data: Projectist[] }>();
+const props = defineProps<{ data: ProjectList[] }>();
 const filteredProjects = computed(() => props.data);
 </script>
 
