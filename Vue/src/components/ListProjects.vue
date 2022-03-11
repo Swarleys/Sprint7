@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { Projectist } from '../interfaces/interfaces';
+import { ProjectList } from '../interfaces/interfaces';
 import ListFiltered from './ListFiltered.vue'
-const props = defineProps<{ data: Projectist[] }>();
+const props = defineProps<{ data: ProjectList[] }>();
 const projects = ref(props.data)
 const search = ref('');
 const filteredProjects = computed(() =>
