@@ -1,0 +1,2 @@
+export interface PossibleProjects { description: string, price: number, name: string };
+export interface ProjectList { nombrePresupuesto: string, cliente: string, totalConPaginas: number, id: number, fullPath: string };
