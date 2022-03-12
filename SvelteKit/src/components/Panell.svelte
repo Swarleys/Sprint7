@@ -16,3 +16,19 @@
 		description="Lugar donde indicar la cantidad de idiomas en los que estara disponible tu pagina web."
 	/>
 </div>
+
+<style>
+	@keyframes panell {
+		0% {
+			transform: scale(0);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	.scalePanel {
+		transform-origin: top left;
+		animation: panell 500ms ease-in-out;
+	}
+</style>

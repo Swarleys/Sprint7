@@ -127,3 +127,7 @@
 	class="px-4 py-2 rounded-md shadow-orange-700 shadow-md bg-orange-500 text-white block max-w-fit mx-auto"
 	>Volver al inicio</a
 >
+
+<style>
+	
+</style>
